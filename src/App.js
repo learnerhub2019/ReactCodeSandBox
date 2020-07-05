@@ -1,18 +1,20 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
 
 import "./styles.scss";
-// import HeaderComponent from "./components/common/header.component";
-// import HomePageComponent from "./components/home/homePage.component";
 
 import Routes from "./routes/";
+import store from "./store";
 
 export default function App() {
   return (
-    <div className="App">
-      <Router>
-        <Routes />
-      </Router>
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <Router>
+          <Routes />
+        </Router>
+      </div>
+    </Provider>
   );
 }
