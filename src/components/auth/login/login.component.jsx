@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Checkbox, CssBaseline, Link, Grid, Box, Typography, Avatar, Button, TextField, makeStyles, Container, FormControlLabel } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import authAction from "../../../actions/authActions";
+import { authAction } from "../../../actions";
 import { connect } from "react-redux";
 
 const useStyles = makeStyles(theme => ({
@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function LoginComponent() {
+function LoginComponent({ authActionLogin }) {
 
   const classes = useStyles();
   const [form, setState] = useState({
@@ -45,6 +45,8 @@ function LoginComponent() {
     e.preventDefault();
 
     console.dir(form);
+    // console.dir( props );
+    authActionLogin('hi', 'there');
   }
 
   return (
@@ -116,8 +118,13 @@ function LoginComponent() {
   );
 }
 
-const mapDispatchToProps = () => ({
-  signIn: (email, password) => authAction.login(email, password)
-});
+const mapDispatchToProps = {
+  authActionLogin: authAction.login
+};
 
-export default connect(null, mapDispatchToProps)(LoginComponent);
+const mapStateToProps = (state) => {
+  const { loggedIn } = state.auth;
+  return loggedIn;
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginComponent);
