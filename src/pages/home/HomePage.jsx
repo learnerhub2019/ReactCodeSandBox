@@ -45,6 +45,7 @@ const cards = [1, 2, 3, 4];
 
 export default function HomePage() {
   const classes = useStyles();
+  console.log( process.env.REACT_APP_PORT_ID )
   return (
     <React.Fragment>
       <div className={classes.heroContent}>

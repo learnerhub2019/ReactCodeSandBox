@@ -5,5 +5,13 @@ export const userActionTypes = {
 };
 
 export const authActionTypes = {
-  LOGIN_USER: "LOGIN_USER"
+  LOGIN_REQUEST: "LOGIN_REQUEST",
+  LOGIN_SUCCESS: "LOGIN_SUCCESS",
+  LOGOUT_REQUEST: "LOGOUT_REQUEST"
+};
+
+export const alertTypes = {
+  SUCCESS: 'ALERT_SUCCESS',
+  ERROR: 'ALERT_ERROR',
+  CLEAR: 'ALERT_CLEAR'
 };
