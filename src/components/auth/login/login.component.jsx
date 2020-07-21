@@ -1,17 +1,8 @@
-import React from "react";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
+import React, { useState } from "react";
+import { Checkbox, CssBaseline, Link, Grid, Box, Typography, Avatar, Button, TextField, makeStyles, Container, FormControlLabel } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
+import { authAction } from "../../../actions";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -33,8 +24,30 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SignIn() {
+function LoginComponent({ authActionLogin }) {
+
   const classes = useStyles();
+  const [form, setState] = useState({
+    email: '',
+    password: ''
+  });
+
+  const onUpdateField = e => {
+    e.preventDefault();
+    setState({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+
+  }
+
+  const onFormSubmit = e => {
+    e.preventDefault();
+
+    console.dir(form);
+    // console.dir( props );
+    authActionLogin('hi', 'there');
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -46,7 +59,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={onFormSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -57,6 +70,8 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            value={form.username}
+            onChange={onUpdateField}
           />
           <TextField
             variant="outlined"
@@ -68,6 +83,8 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={form.password}
+            onChange={onUpdateField}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -100,3 +117,14 @@ export default function SignIn() {
     </Container>
   );
 }
+
+const mapDispatchToProps = {
+  authActionLogin: authAction.login
+};
+
+const mapStateToProps = (state) => {
+  const { loggedIn } = state.auth;
+  return loggedIn;
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginComponent);

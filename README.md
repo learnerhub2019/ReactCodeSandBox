@@ -7,3 +7,6 @@ Created with CodeSandbox
 
 
 #Adding new stage branch
+$ heroku create school-monitor-app --buildpack https://github.com/mars/create-react-app-buildpack.git
+
+[mars/create-react-app-buildpack](https://github.com/mars/create-react-app-buildpack)

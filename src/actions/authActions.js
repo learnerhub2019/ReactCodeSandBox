@@ -1,15 +1,18 @@
-import { authActionTypes } from "./types";
-import _ from "lodash";
+import { authActionTypes } from "../_constants";
+// import _ from "lodash";
 
-export const checkLoggedInUser = (isUserLoggedIn, user, token) => dispatch => {
+const login = (username, password) => dispatch => {
     dispatch({
-        type: authActionTypes.LOGIN_USER,
-        payload: _.pick(user, [
-            "firstName",
-            "lastName",
-            "userName",
-            "email",
-            "password"
-        ])
-    })
+        type: authActionTypes.LOGIN_REQUEST,
+        payload: username
+    });
 }
+
+const logout = () => dispatch => { };
+const register = () => dispatch => { };
+
+export const authAction = {
+    login,
+    logout,
+    register
+};
